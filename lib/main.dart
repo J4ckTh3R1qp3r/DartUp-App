@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -7,13 +8,22 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return GestureDetector(
+      // According to Google guidelines swipe down is the gesture to exit the app and this is the best place to add this logic as it it available through all app
+      onVerticalDragDown: (details) {
+        if (details.globalPosition.dy < 50) {
+          // 'dy' stand for the 'Y' swipe start position and '50' means that swipe should begin from the corner of the touch panel
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        }
+      },
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
