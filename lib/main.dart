@@ -48,12 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onHorizontalDragUpdate: (details) {
-        print(details.delta.dx);
-        if (details.delta.dx > 0) {
-          _incrementCounter(-details.delta.dx);
-        } else {
-          _incrementCounter(-details.delta.dx);
-        }
+        _incrementCounter(-details.delta.dx);
       },
       onTap: () => _incrementCounter(1),
       child: Scaffold(
